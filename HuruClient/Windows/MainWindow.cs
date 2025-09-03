@@ -1,6 +1,10 @@
 using System.Numerics;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Configuration;
+using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Interface.Windowing;
+using FFXIVClientStructs.FFXIV.Client.Game.Character;
+using HuruClient.Parsers;
 
 namespace HuruClient.Windows;
 
@@ -40,6 +44,31 @@ public class MainWindow : Window, IDisposable
             return;
         }
 
-        ImGui.TextUnformatted("Loaded");
+        ImGui.TextUnformatted("Loaded:");
+        DebugInfo();
+        ImGui.TextUnformatted("====");
+    }
+
+    private void DebugInfo()
+    {
+        var activePlugins = Plugin.PluginInterface.InstalledPlugins.Where(x => x.IsLoaded);
+
+        foreach (var match in activePlugins)
+        {
+            switch (match.Name)
+            {
+                case "Moodles":
+                    break;
+                case "Pet Nicknames":
+                    ImGui.TextUnformatted(PetNameParser.Parse());
+                    break;
+                case "Honorific":
+                    ImGui.TextUnformatted(HonorificParser.Parse());
+                    break;
+                default: continue;
+            }
+
+            ImGui.TextColored(0xff00dd00, match.Name);
+        }
     }
 }
