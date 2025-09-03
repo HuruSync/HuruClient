@@ -1,3 +1,4 @@
+using Dalamud.Bindings.ImGui;
 using Newtonsoft.Json;
 
 namespace HuruClient.Parsers
@@ -8,20 +9,35 @@ namespace HuruClient.Parsers
         {
             var configPath = Path.Combine(Plugin.PluginInterface.ConfigDirectory.Parent.FullName, "PetRenamer.json");
             var character = Plugin.ClientState.LocalPlayer;
-            var player = (FFXIVClientStructs.FFXIV.Client.Game.Character.Character*)character.Address;
 
             var json = File.ReadAllText(configPath);
             var parsedConfig = JsonConvert.DeserializeObject<dynamic>(json);
+            
 
-            var pet = parsedConfig.SerializableUsersV5[0]
-                //.FirstOrDefault(x => x.Name == character.Name && x.Homeworld == character.HomeWorld.RowId)
-                .SerializableNameDatas[0]
-                //.FirstOrDefault(FFXIVClientStructs => FFXIVClientStructs.IDS.contains(player->CompanionData.CompanionId))
-                .Names[0];
+            var petId = character.CurrentMinion.Value.Value.Model.RowId;
+            ImGui.TextUnformatted(petId.ToString());
+            foreach (var user in parsedConfig?.SerializableUsersV5)
+            {
+                if (user.Name != character.Name || user.Homeworld != character.HomeWorld.RowId)
+                {
+                    continue;
+                }
 
-            return pet != null
-                ? pet
-                : player->CompanionData.CompanionObject->NameString;
+                foreach (var data in user.SerializableNameDatas)
+                {
+                    var ids = JsonConvert.DeserializeObject<uint[]?>((string)data.IDS.ToString());
+                    if (ids == null || !ids.Contains(petId))
+                    {
+                        continue;
+                    }
+
+                    return data.Names[0];
+                }
+            }
+
+            // Fall back on default model name
+            var player = (FFXIVClientStructs.FFXIV.Client.Game.Character.Character*)character.Address;
+            return player->CompanionData.CompanionObject->NameString;
         }
     }
 }
