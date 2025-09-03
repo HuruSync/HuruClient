@@ -20,6 +20,6 @@
     <PackageReference Update="DalamudPackager" Version="13.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ConfigModels\" />
+    <ProjectReference Include="..\Honorific\Honorific.csproj" />
   </ItemGroup>
 </Project>

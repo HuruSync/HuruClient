@@ -10,18 +10,17 @@ namespace HuruClient.Parsers
             var configPath = Path.Combine(Plugin.PluginInterface.ConfigDirectory.Parent.FullName, "Honorific.json");
             var character = Plugin.ClientState.LocalPlayer;
 
-            using var stream = File.OpenRead(configPath);
-            using var reader = new StreamReader(stream);
-            var parsedConfig = JsonConvert.DeserializeObject<HonorificConfig>(reader.ReadToEnd());
-
-            return parsedConfig.TryGetCharacterConfig(character.Name.TextValue, character.HomeWorld.RowId, out var honorificConfig)
-                ? honorificConfig.DefaultTitle.Title
-                : "Not found";
+            var json = File.ReadAllText(configPath);
+            var parsedConfig = JsonConvert.DeserializeObject<Honorific.PluginConfig>(json);
 
             var player = (FFXIVClientStructs.FFXIV.Client.Game.Character.Character*)character.Address;
 
             var vanillaTitle = Plugin.DataManager.GetExcelSheet<Title>().GetRowOrDefault(player->TitleId);
-            return $"{vanillaTitle.Value.Masculine}";
+            var vanillaGenderedTitle = player->Sex == 0 ? $"{vanillaTitle.Value.Masculine}" : $"{vanillaTitle.Value.Feminine}";
+
+            return parsedConfig.TryGetCharacterConfig(character.Name.TextValue, character.HomeWorld.RowId, out var honorificConfig)
+                ? honorificConfig.DefaultTitle.Title
+                : vanillaGenderedTitle;
         }
     }
 }
