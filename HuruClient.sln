@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Honorific", "Honorific\Honorific.csproj", "{449FC8D6-C7AA-B565-9D54-FB45751012EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetRenamer", "FFXIVPetRenamer\PetRenamer\PetRenamer.csproj", "{CF977EF6-6ADB-73FD-F974-605182892613}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,12 +25,17 @@ Global
 		{449FC8D6-C7AA-B565-9D54-FB45751012EA}.Debug|x64.Build.0 = Debug|x64
 		{449FC8D6-C7AA-B565-9D54-FB45751012EA}.Release|x64.ActiveCfg = Release|x64
 		{449FC8D6-C7AA-B565-9D54-FB45751012EA}.Release|x64.Build.0 = Release|x64
+		{CF977EF6-6ADB-73FD-F974-605182892613}.Debug|x64.ActiveCfg = Debug|x64
+		{CF977EF6-6ADB-73FD-F974-605182892613}.Debug|x64.Build.0 = Debug|x64
+		{CF977EF6-6ADB-73FD-F974-605182892613}.Release|x64.ActiveCfg = Release|x64
+		{CF977EF6-6ADB-73FD-F974-605182892613}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{449FC8D6-C7AA-B565-9D54-FB45751012EA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{CF977EF6-6ADB-73FD-F974-605182892613} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B17E85B1-5F60-4440-9F9A-3DDE877E8CDF}

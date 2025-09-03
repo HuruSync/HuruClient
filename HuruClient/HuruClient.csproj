@@ -20,6 +20,7 @@
     <PackageReference Update="DalamudPackager" Version="13.1.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FFXIVPetRenamer\PetRenamer\PetRenamer.csproj" />
     <ProjectReference Include="..\Honorific\Honorific.csproj" />
   </ItemGroup>
 </Project>

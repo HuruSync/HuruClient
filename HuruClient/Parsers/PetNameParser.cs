@@ -1,4 +1,4 @@
-using System.Text.Json.Nodes;
+using Newtonsoft.Json;
 
 namespace HuruClient.Parsers
 {
@@ -6,9 +6,22 @@ namespace HuruClient.Parsers
     {
         internal unsafe static string Parse()
         {
-            return Plugin.ClientState.LocalPlayer.CurrentMinion.Value.Value.Singular.ToString();
-            var player = (FFXIVClientStructs.FFXIV.Client.Game.Character.Character*)Plugin.ClientState.LocalPlayer.Address;
-            return $"{player->CompanionData.CompanionObject->NameString}";
+            var configPath = Path.Combine(Plugin.PluginInterface.ConfigDirectory.Parent.FullName, "PetRenamer.json");
+            var character = Plugin.ClientState.LocalPlayer;
+            var player = (FFXIVClientStructs.FFXIV.Client.Game.Character.Character*)character.Address;
+
+            var json = File.ReadAllText(configPath);
+            var parsedConfig = JsonConvert.DeserializeObject<dynamic>(json);
+
+            var pet = parsedConfig.SerializableUsersV5[0]
+                //.FirstOrDefault(x => x.Name == character.Name && x.Homeworld == character.HomeWorld.RowId)
+                .SerializableNameDatas[0]
+                //.FirstOrDefault(FFXIVClientStructs => FFXIVClientStructs.IDS.contains(player->CompanionData.CompanionId))
+                .Names[0];
+
+            return pet != null
+                ? pet
+                : player->CompanionData.CompanionObject->NameString;
         }
     }
 }

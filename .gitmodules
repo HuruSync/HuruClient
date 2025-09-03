@@ -1,3 +1,6 @@
 [submodule "Honorific"]
 	path = Honorific
 	url = https://github.com/Caraxi/Honorific
+[submodule "FFXIVPetRenamer"]
+	path = FFXIVPetRenamer
+	url = https://github.com/Glyceri/FFXIVPetRenamer.git

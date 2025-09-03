@@ -18,7 +18,12 @@ namespace HuruClient.Parsers
             var vanillaTitle = Plugin.DataManager.GetExcelSheet<Title>().GetRowOrDefault(player->TitleId);
             var vanillaGenderedTitle = player->Sex == 0 ? $"{vanillaTitle.Value.Masculine}" : $"{vanillaTitle.Value.Feminine}";
 
-            return parsedConfig.TryGetCharacterConfig(character.Name.TextValue, character.HomeWorld.RowId, out var honorificConfig)
+            if (!parsedConfig.TryGetCharacterConfig(character.Name.TextValue, character.HomeWorld.RowId, out var honorificConfig))
+            {
+                return vanillaGenderedTitle;
+            }
+                
+            return honorificConfig.DefaultTitle.Enabled
                 ? honorificConfig.DefaultTitle.Title
                 : vanillaGenderedTitle;
         }
