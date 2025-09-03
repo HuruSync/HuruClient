@@ -1,0 +1,12 @@
+{
+  "Author": "DevHuru",
+  "Name": "HuruClient",
+  "Punchline": "Who Are You?",
+  "Description": "Plugin to sync up small textual roleplay details",
+  "ApplicableVersion": "any",
+  "Tags": [
+    "data",
+    "plugin",
+    "sync"
+  ]
+}

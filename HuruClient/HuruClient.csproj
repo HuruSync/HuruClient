@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Dalamud.NET.SDK/13.0.0">
+  <PropertyGroup>
+    <Version>0.0.0.2</Version>
+    <Description>Plugin to sync up small textual roleplay details</Description>
+    <PackageProjectUrl>https://github.com/HuruSync/HuruClient</PackageProjectUrl>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+    <IsPackable>false</IsPackable>
+    <PackageIcon></PackageIcon>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="credentials.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="DalamudPackager" Version="13.1.0" />
+  </ItemGroup>
+</Project>
